@@ -12,9 +12,19 @@ import ten from './Assets/10.jpg';
 import eleven from './Assets/11.jpg';
 import twelve from './Assets/12.jpg';
 import thirteen from './Assets/13.jpg';
+import fourteen from './Assets/14.jpg';
+import fifteen from './Assets/15.jpg';
+import sixteen from './Assets/16.jpg';
+import seventeen from './Assets/17.jpg';
+
+import { useEffect, useState } from 'react';
 
 function App() {
-  const allImages = [
+  const [initialFour, setInitialFour] = useState();
+  const [secondFour, setSecondFour] = useState();
+  const [suffeled, setSuffeled] = useState();
+
+  const initialImages = [
     { id: 1, src: one },
     { id: 2, src: two },
     { id: 3, src: three },
@@ -23,29 +33,56 @@ function App() {
     { id: 6, src: six },
     { id: 7, src: seven },
     { id: 8, src: eight },
+  ];
+
+  const allImages = [
     { id: 9, src: nine },
     { id: 10, src: ten },
     { id: 11, src: eleven },
     { id: 12, src: twelve },
     { id: 13, src: thirteen },
-  ];
+    { id: 14, src: fourteen },
+    { id: 15, src: fifteen },
+    { id: 16, src: sixteen },
+    { id: 17, src: seventeen },
+  ]
 
-  const selectRandomFour = () => {
+
+
+  // Selecting 4 random images from allImages array for initial display
+  const selectRandomFour = (arrayData) => {
     const randomFour = [];
     while (randomFour.length < 4) {
-      const random = Math.floor(Math.random() * allImages.length);
-      if (!randomFour.includes(allImages[random])) {
-        randomFour.push(allImages[random]);
+      const random = Math.floor(Math.random() * arrayData.length);
+      if (!randomFour.includes(arrayData[random])) {
+        randomFour.push(arrayData[random]);
       }
     }
     return randomFour;
   };
 
+  const combineAndShuffle = (array1, array2) => {
+    const combinedArray = [...array1, ...array2];
+    const shuffledArray = combinedArray.sort(() => Math.random() - 0.5);
+    setSuffeled(shuffledArray);
+    return shuffledArray;
+  };
+
+  useEffect(() => {
+    setInitialFour(selectRandomFour(initialImages));
+    setSecondFour(selectRandomFour(allImages));
+    const firstFour = selectRandomFour(initialImages);
+    const secondFour = selectRandomFour(allImages);
+    combineAndShuffle(firstFour, secondFour);
+  }, []);
+
+  
+
   return (
     <div className='mid_container'>
       <div className="grid grid-cols-4 w-1/2 mx-auto border-2 border-green-600 py-5 px-3">
-        {selectRandomFour()?.map((image) => (
-          <div className="grid-item w-2/3 border-2 border-red-400 cursor-pointer">
+        {initialFour?.map((image) => (
+          <div key={image?.id} className="grid-item w-2/3 border-2 border-red-400 cursor-pointer">
             <img className='' src={image.src} alt="random" />
           </div>
         ))}
