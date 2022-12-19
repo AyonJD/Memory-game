@@ -1,39 +1,55 @@
 import './App.css';
+import one from './Assets/1.jpg';
+import two from './Assets/2.jpg';
+import three from './Assets/3.jpg';
+import four from './Assets/4.jpg';
+import five from './Assets/5.jpg';
+import six from './Assets/6.jpg';
+import seven from './Assets/7.jpg';
+import eight from './Assets/8.jpg';
+import nine from './Assets/9.jpg';
+import ten from './Assets/10.jpg';
+import eleven from './Assets/11.jpg';
+import twelve from './Assets/12.jpg';
+import thirteen from './Assets/13.jpg';
 
 function App() {
   const allImages = [
-    { id: 1, src: 'https://ibb.co/8M2gHB6' },
-    { id: 2, src: 'https://ibb.co/PxMrLbq' },
-    { id: 3, src: 'https://ibb.co/C7nTL2P' },
-    { id: 4, src: 'https://ibb.co/8NnCqrp' },
-    { id: 5, src: 'https://ibb.co/rsZ11z9' },
-    { id: 6, src: 'https://ibb.co/2KRR1KL' },
-    { id: 7, src: 'https://ibb.co/tb64tSC' },
-    { id: 8, src: 'https://ibb.co/CQRKxdj' },
-    { id: 9, src: 'https://ibb.co/gSPPBxX' },
-    { id: 10, src: 'https://ibb.co/sHn4v9L' },
-    { id: 11, src: 'https://ibb.co/3hy83FW' },
-    { id: 12, src: 'https://ibb.co/t2jXXmr' },
-    { id: 13, src: 'https://ibb.co/w0BTJZC' },
+    { id: 1, src: one },
+    { id: 2, src: two },
+    { id: 3, src: three },
+    { id: 4, src: four },
+    { id: 5, src: five },
+    { id: 6, src: six },
+    { id: 7, src: seven },
+    { id: 8, src: eight },
+    { id: 9, src: nine },
+    { id: 10, src: ten },
+    { id: 11, src: eleven },
+    { id: 12, src: twelve },
+    { id: 13, src: thirteen },
   ];
 
   const selectRandomFour = () => {
-    //dont repeat the same image
     const randomFour = [];
     while (randomFour.length < 4) {
       const random = Math.floor(Math.random() * allImages.length);
-      if (!randomFour.includes(random)) {
+      if (!randomFour.includes(allImages[random])) {
         randomFour.push(allImages[random]);
       }
     }
     return randomFour;
   };
 
-  console.log(selectRandomFour());
-
   return (
-    <div>
-      OK
+    <div className='mid_container'>
+      <div className="grid grid-cols-4 w-1/2 mx-auto border-2 border-green-600 py-5 px-3">
+        {selectRandomFour()?.map((image) => (
+          <div className="grid-item w-2/3 border-2 border-red-400 cursor-pointer">
+            <img className='' src={image.src} alt="random" />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

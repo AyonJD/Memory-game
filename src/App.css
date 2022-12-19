@@ -1,0 +1,11 @@
+.mid_container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1.5rem;
+  }
+  
+  @media only screen and (max-width: 990px) {
+    .mid_container {
+      padding: 1rem;
+    }
+  }
