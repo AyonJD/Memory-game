@@ -23,6 +23,7 @@ function App() {
   const [initialFour, setInitialFour] = useState();
   const [secondFour, setSecondFour] = useState();
   const [suffeled, setSuffeled] = useState();
+  const [dataWillRender, setDataWillRender] = useState(false);
 
   const initialImages = [
     { id: 1, src: one },
@@ -47,8 +48,6 @@ function App() {
     { id: 17, src: seventeen },
   ]
 
-
-
   // Selecting 4 random images from allImages array for initial display
   const selectRandomFour = (arrayData) => {
     const randomFour = [];
@@ -68,25 +67,49 @@ function App() {
     return shuffledArray;
   };
 
+  const handleTimer = () => {
+    setTimeout(() => {
+      setDataWillRender(true);
+      console.log(suffeled);
+    }, 5000);
+  };
+
+
   useEffect(() => {
     setInitialFour(selectRandomFour(initialImages));
     setSecondFour(selectRandomFour(allImages));
     const firstFour = selectRandomFour(initialImages);
     const secondFour = selectRandomFour(allImages);
+    console.log(firstFour, secondFour);
     combineAndShuffle(firstFour, secondFour);
   }, []);
 
-  
+
 
   return (
     <div className='mid_container'>
-      <div className="grid grid-cols-4 w-1/2 mx-auto border-2 border-green-600 py-5 px-3">
-        {initialFour?.map((image) => (
-          <div key={image?.id} className="grid-item w-2/3 border-2 border-red-400 cursor-pointer">
-            <img className='' src={image.src} alt="random" />
-          </div>
-        ))}
+      <div className="grid grid-cols-4 w-1/2 gap-y-5 mx-auto border-2 border-green-600 py-5 px-3">
+        {
+          !dataWillRender ? (
+            <>
+              {initialFour?.map((image) => (
+                <div key={image?.id} className="grid-item w-2/3 border-2 border-red-400 cursor-pointer">
+                  <img className='' src={image.src} alt="random" />
+                </div>
+              ))}
+            </>
+          ) : (
+            <>
+              {suffeled?.map((image) => (
+                <div key={image?.id} className="grid-item w-2/3 border-2 border-red-400 cursor-pointer">
+                  <img className='' src={image.src} alt="random" />
+                </div>
+              ))}
+            </>
+          )
+        }
       </div>
+      <button onClick={handleTimer} className="bg-green-500 px-5 py-2 rounded-sm text-white font-semibold">Start Game</button>
     </div>
   );
 }
